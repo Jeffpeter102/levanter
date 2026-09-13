@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '24' # Upgraded to match GitHub's environment requirements
+        node-version: '24'
 
     - name: Install dependencies
       run: |
@@ -27,5 +27,6 @@ jobs:
         SESSION_ID: ${{ secrets.SESSION_ID }}
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         SUDO: ${{ secrets.SUDO }}
+        VPS: "true" # Forces the system to register as a custom VPS platform instantly
         ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
       run: npm start
