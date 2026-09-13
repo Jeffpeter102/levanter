@@ -1,0 +1,29 @@
+name: Run Levanter MD Bot
+
+on:
+  workflow_dispatch: # Allows you to turn it on manually
+  schedule:
+    - cron: '0 */6 * * *' # Restarts automatically every 6 hours to keep it awake permanently
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start WhatsApp Bot
+      env:
+        SESSION_ID: ${{ secrets.SESSION_ID }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        SUDO: ${{ secrets.SUDO }}
+      run: npm start
